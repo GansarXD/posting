@@ -1,6 +1,11 @@
 .mini-post {
+    margin-top: 30px;
     border-radius: 10px;
     box-shadow: 0 0 10px;
     width: 80%;
     height: max-content;
+    padding: 15px;
+    color: #ffffff;
+    background-color: #0025FF;
+    transition: 500ms;
 }
