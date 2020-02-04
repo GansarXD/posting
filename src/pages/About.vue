@@ -13,10 +13,13 @@
         <li v-for="name in filteredNames">{{ name }}</li>
       </ul>
     </div>
+    <modal/>
   </div>
 </template>
 
 <script>
+  import EditModal from "@/components/EditModal";
+
   export default {
     data() {
       return {
@@ -25,6 +28,9 @@
         addName: "",
         names: []
       }
+    },
+    components: {
+      modal: EditModal
     },
     filters: {
       lowercase(value) {

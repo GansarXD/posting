@@ -26,23 +26,40 @@
         data() {
             return {
                 form: {
-                    id: -1,
                     title: '',
                     content: ''
                 },
-                posts: []
             }
         },
         components: {
             postPreview: PostPreview
         },
+        computed: {
+            posts() {
+                return this.$store.getters.POSTS;
+            }
+        },
         methods: {
-            createPost() {
-                this.form.id += 1;
-                this.posts.push({...this.form});
-            },
+    createPost() {
+        if(this.form.title && this.form.content != null) {
+            console.log(this.form);
+            console.log(this.$store.getters.POSTS);
+            this.$store.dispatch('ASYNC_SET_POST', {
+                postForm: this.form,
+                timeoutDelay: 600
+            });
+            // this.posts.push({...this.form});
+        }
+        else {
+            this.$toast.error('Fields must be filled', {
+                dismissible: false,
+                duration: 1700
+            });
+        }
+    },
+
             deletePost(index) {
-                this.posts.splice(index, 1);
+                this.$store.dispatch('ASYNC_REMOVE_POST', index)
             }
         }
     }
