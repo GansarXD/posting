@@ -38,7 +38,7 @@
       },
       uppercase(value) {
         return value.toUpperCase()
-      }
+      },
     },
     computed: {
       filteredNames() {

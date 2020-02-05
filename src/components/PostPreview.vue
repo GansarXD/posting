@@ -1,5 +1,7 @@
 <template>
     <div class="mini-post">
+        <button @click="editModeOn">Edit this post</button>
+        <hr>
         <h3>{{ title }}</h3>
         <p>{{ content }}</p>
         <hr>
@@ -21,6 +23,9 @@
         methods: {
             deletePost() {
                 this.$emit('deletedPost')
+            },
+            editModeOn() {
+                this.$emit('editModeOn')
             }
         }
     }
