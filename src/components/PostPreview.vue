@@ -1,5 +1,5 @@
 <template>
-    <div class="mini-post">
+    <div class="mini-post" id="bgcolor">
         <button @click="editModeOn">Edit this post</button>
         <hr>
         <h3>{{ title }}</h3>
@@ -22,6 +22,8 @@
         },
         methods: {
             deletePost() {
+                let deadColor = document.getElementById('bgcolor');
+                deadColor.style.backgroundColor = "#00A4CA";
                 this.$emit('deletedPost')
             },
             editModeOn() {
@@ -32,5 +34,7 @@
 </script>
 
 <style scoped>
-
+    #bgcolor {
+        background-color: #B2004B;
+    }
 </style>

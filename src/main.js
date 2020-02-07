@@ -5,9 +5,15 @@ import store from './store'
 import VueToast from 'vue-toast-notification'
 import 'vue-toast-notification/dist/index.css'
 import '@/assets/styles/post-preview.css'
+import DatePicker from 'vue2-datepicker'
+import 'vue2-datepicker/index.css'
+import HighchartsVue from 'highcharts-vue'
+import 'bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 Vue.config.productionTip = false
 Vue.use(VueToast);
+Vue.use(HighchartsVue);
 
 new Vue({
   router,

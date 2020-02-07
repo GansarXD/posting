@@ -26,11 +26,11 @@ export default {
         REMOVE_POST(state, payload) {
             // console.log('payload id');
             // console.log(payload.id);
-            state.posts.forEach((element,index) => {
+            state.posts.forEach((element) => {
                 if(element.id === payload.id) {
                     // console.log('element id in state array');
                     // console.log(element.id);
-                    state.posts.splice(index, 1);
+                    state.posts.splice(state.posts.indexOf(element), 1);
                 }
             })
         },
@@ -59,7 +59,7 @@ export default {
         ASYNC_REMOVE_POST(context, payload) {
             setTimeout( ()=> {
                 context.commit('REMOVE_POST', payload.deletingPostForm);
-            }, 700)
+            }, 1500)
         },
         ASYNC_UPDATE_POST(context, payload) {
             setTimeout(() => {

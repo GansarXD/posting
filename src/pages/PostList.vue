@@ -1,5 +1,14 @@
 <template>
     <div>
+        <div>
+            <h1>datepicker</h1>
+            <date-picker
+                    v-model="time2"
+                    value-type="format"
+                    :range="true"
+                    :confirm="true"
+                    format="DD-MM-YYYY"></date-picker>
+        </div>
         <h3>Please enter title of your post below</h3>
         <input type="text" v-model="form.title">
         <br>
@@ -26,11 +35,14 @@
 <script>
     import PostPreview from "@/components/PostPreview";
     import EditModal from "@/components/EditModal";
+    import DatePicker from 'vue2-datepicker';
+    import 'vue2-datepicker/index.css';
 
     export default {
         name: "PostList",
         data() {
             return {
+                time2: null,
                 form: {
                     id: Number,
                     title: '',
@@ -39,6 +51,7 @@
             }
         },
         components: {
+            datePicker: DatePicker,
             postPreview: PostPreview,
             editModal: EditModal
         },
@@ -87,6 +100,7 @@
                 })
             },
             deletePost() {
+
                 this.$store.dispatch('ASYNC_REMOVE_POST', {
                     deletingPostForm: this.form
                 })
