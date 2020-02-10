@@ -1,14 +1,14 @@
 <template>
     <div class="modal-background">
         <div class="modal-content">
-            <button @click="editModeOff">Cancel</button>
+            <button class="btn btn-danger" @click="editModeOff">CANCEL</button>
             <hr>
             <h1>modal window</h1>
             <h4>Title</h4>
             <input v-model="newTitle" type="text">
             <h4>Content</h4>
             <input v-model="newContent" type="text">
-            <button @click="updatePost(), editModeOff()">Confirm</button>
+            <button class="btn btn-success" @click="updatePost(), editModeOff()">CONFIRM</button>
         </div>
     </div>
 </template>
@@ -41,6 +41,7 @@
 
 <style scoped>
     .modal-background {
+        position: absolute;
         background-color: rgba(0, 0, 0, 0.7);
         height: 100vh;
         z-index: 2;

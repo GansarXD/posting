@@ -1,13 +1,13 @@
 <template>
     <div class="mini-post" id="bgcolor">
-        <button @click="editModeOn">Edit this post</button>
+        <button class="btn btn-warning" @click="editModeOn">Edit this post</button>
         <hr>
         <h3>{{ title }}</h3>
         <p>{{ content }}</p>
         <hr>
         <p>{{ date }}</p>
         <hr>
-        <button @click="deletePost">Remove this post</button>
+        <button class="btn btn-danger" @click="deletePost">Remove this post</button>
     </div>
 </template>
 
@@ -37,6 +37,6 @@
 
 <style scoped>
     #bgcolor {
-        background-color: #B2004B;
+        background-color: #ffffff;
     }
 </style>

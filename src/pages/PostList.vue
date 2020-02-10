@@ -15,7 +15,7 @@
         <h4>Please enter text of your post below</h4>
         <textarea v-model="form.content" rows="5" cols="50"></textarea>
         <br>
-        <button @click="createPost">create</button>
+        <button class="btn btn-primary" @click="createPost">CREATE</button>
         <div id="post" v-for="post in posts">
             <post-preview
                     @deletedPost="deletePost"
