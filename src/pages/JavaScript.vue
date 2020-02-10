@@ -3,10 +3,16 @@
         <h1>Banging js arrays</h1>
         <button class="btn btn-primary" @click="fillAll">PLAY</button>
         <button class="btn btn-danger" @click="scooterFire">PLAY CHAOTIC PRINT</button>
+        <br>
+        <br>
+        <button class="btn btn-dark" @click="initPromise">PROMISE</button>
+        
     </div>
 </template>
 
 <script>
+    import {MyAxios} from '@/services/index'
+
     export default {
         name: "JavaScript",
         data() {
@@ -21,6 +27,28 @@
             }
         },
         methods: {
+            initPromise() {
+                let promise = new Promise(((resolve, reject) => {
+                    MyAxios.get('posts').then((response) => {
+                        let userID = response.data[0].userId;
+                        console.log(userID);
+                        if (userID === 1) {
+                            resolve('success')
+                        }
+                        else {
+                            reject('fail')
+                        }
+                    });
+                }));
+                promise.then((message) => {
+                    console.log('then');
+                    console.log(message);
+                })
+                    .catch((message) => {
+                        console.log('catch');
+                        console.log(message)
+                    })
+            },
             fillAll() {
                 // let led = 2;
                 // let bread = 3;

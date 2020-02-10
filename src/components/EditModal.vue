@@ -8,13 +8,14 @@
             <input v-model="newTitle" type="text">
             <h4>Content</h4>
             <input v-model="newContent" type="text">
-            <button @click="updatePost">Confirm</button>
+            <button @click="updatePost(), editModeOff()">Confirm</button>
         </div>
     </div>
 </template>
 
 <script>
     export default {
+        props: ["id"],
         name: "EditModal",
         data() {
             return {
@@ -24,11 +25,12 @@
         },
         methods: {
             updatePost() {
+                // console.log(this.id);
                 this.$emit('updatePost',{
+                    id: this.id,
                     title: this.newTitle,
                     content: this.newContent
                 });
-                // this.emit('editModeOff')
             },
             editModeOff() {
                 this.$emit('editModeOff')

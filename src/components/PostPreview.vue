@@ -13,7 +13,7 @@
 
 <script>
     export default {
-        props: ["title","content"],
+        props: ["title","content","id"],
         name: "PostPreview",
         data() {
             return {
@@ -22,12 +22,14 @@
         },
         methods: {
             deletePost() {
-                let deadColor = document.getElementById('bgcolor');
-                deadColor.style.backgroundColor = "#00A4CA";
-                this.$emit('deletedPost')
+                this.$emit('deletedPost', {
+                    id: this.id,
+                    title: this.title,
+                    content: this.content
+                });
             },
             editModeOn() {
-                this.$emit('editModeOn')
+                this.$emit('editModeOn', this.id)
             }
         }
     }

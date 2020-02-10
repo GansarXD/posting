@@ -21,18 +21,10 @@ export default {
             payload.id = state.id;
             console.log(payload.id);
             state.posts.push({...payload});
-            console.log(state.posts)
         },
         REMOVE_POST(state, payload) {
-            // console.log('payload id');
-            // console.log(payload.id);
-            state.posts.forEach((element) => {
-                if(element.id === payload.id) {
-                    // console.log('element id in state array');
-                    // console.log(element.id);
-                    state.posts.splice(state.posts.indexOf(element), 1);
-                }
-            })
+            console.log(payload.id);
+            state.posts.splice(state.posts.indexOf(payload), 1)
         },
         UPDATE_POST(state, payload) {
             state.posts.forEach((element) => {
@@ -53,17 +45,18 @@ export default {
         ASYNC_SET_POST(context, payload) {
             setTimeout(() => {
                 context.commit('SET_POST', payload.creatingPostForm);
-                // console.log(payload.creatingPostForm);
             },payload.createTimeoutDelay)
         },
         ASYNC_REMOVE_POST(context, payload) {
             setTimeout( ()=> {
-                context.commit('REMOVE_POST', payload.deletingPostForm);
+                // console.log(payload)
+                context.commit('REMOVE_POST', payload);
             }, 1500)
         },
         ASYNC_UPDATE_POST(context, payload) {
             setTimeout(() => {
-                context.commit('UPDATE_POST', payload.editingPostForm);
+                // console.log(payload)
+                context.commit('UPDATE_POST', payload);
             }, 1000)
         },
         ASYNC_EDIT_MODE_ON(context) {

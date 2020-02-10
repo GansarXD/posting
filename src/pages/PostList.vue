@@ -22,12 +22,14 @@
                     @editModeOn="editModeOn"
                     :title="post.title"
                     :content="post.content"
+                    :id="post.id"
             />
         </div>
         <edit-modal
                 v-if="editMode"
                 @editModeOff="editModeOff"
                 @updatePost="editPost"
+                :id="this.editPostId"
         />
     </div>
 </template>
@@ -43,6 +45,7 @@
         data() {
             return {
                 time2: null,
+                editPostId: Number,
                 form: {
                     id: Number,
                     title: '',
@@ -68,7 +71,9 @@
             }
         },
         methods: {
-            editModeOn() {
+            editModeOn(id) {
+                // console.log(id);
+                this.editPostId = id;
                 this.$store.dispatch("ASYNC_EDIT_MODE_ON")
             },
             editModeOff() {
@@ -76,8 +81,6 @@
             },
     createPost() {
         if(this.form.title && this.form.content != null) {
-            // console.log(this.form);
-            // console.log(this.$store.getters.POSTS);
             this.form.id = this.id;
             this.$store.dispatch('ASYNC_SET_POST', {
                 creatingPostForm: this.form,
@@ -92,17 +95,27 @@
             });
         }
     },
-            editPost(title, content) {
-                this.form.title = title;
-                this.form.content = content;
-                this.$store.dispatch('ASYNC_UPDATE_POST', {
-                    editingPostForm: this.form
+            editPost(post) {
+                // console.log(post);
+                this.posts.forEach((element) => {
+                    if(element.id === post.id) {
+                        // console.log(element);
+                        // console.log(post);
+                        this.$store.dispatch('ASYNC_UPDATE_POST', {
+                            id: post.id,
+                            title: post.title,
+                            content: post.content
+                        })
+                    }
                 })
             },
-            deletePost() {
-
-                this.$store.dispatch('ASYNC_REMOVE_POST', {
-                    deletingPostForm: this.form
+            deletePost(post) {
+                // console.log(post);
+                this.posts.forEach((element) => {
+                    if(element.id === post.id) {
+                        console.log(element);
+                        this.$store.dispatch('ASYNC_REMOVE_POST', element)
+                    }
                 })
             }
         }
