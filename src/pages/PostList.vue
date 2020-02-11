@@ -20,9 +20,11 @@
             <post-preview
                     @deletedPost="deletePost"
                     @editModeOn="editModeOn"
+                    @openPost="openPost"
                     :title="post.title"
                     :content="post.content"
                     :id="post.id"
+                    :date="post.date"
             />
         </div>
         <edit-modal
@@ -30,6 +32,12 @@
                 @editModeOff="editModeOff"
                 @updatePost="editPost"
                 :id="this.editPostId"
+        />
+        <post-about
+                v-if="false"
+                :title="this.postPageForm.title"
+                :content="this.postPageForm.content"
+                :date="this.postPageForm.date"
         />
     </div>
 </template>
@@ -39,6 +47,7 @@
     import EditModal from "@/components/EditModal";
     import DatePicker from 'vue2-datepicker';
     import 'vue2-datepicker/index.css';
+    import PostAbout from "@/pages/PostAbout";
 
     export default {
         name: "PostList",
@@ -51,12 +60,18 @@
                     title: '',
                     content: ''
                 },
+                postPageForm: {
+                    title: '',
+                    content: '',
+                    date: null
+                }
             }
         },
         components: {
             datePicker: DatePicker,
             postPreview: PostPreview,
-            editModal: EditModal
+            editModal: EditModal,
+            postAbout: PostAbout
         },
         computed: {
             posts() {
@@ -117,6 +132,14 @@
                         this.$store.dispatch('ASYNC_REMOVE_POST', element)
                     }
                 })
+            },
+            openPost(post) {
+                this.$router.push('/post-about');
+                this.postPageForm = {
+                    title: post.title,
+                    content: post.content,
+                    date: post.date
+                };
             }
         }
     }

@@ -4,7 +4,7 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/posts">Feed</router-link> |
-      <RouterLink to="/javascript">JS</RouterLink>
+      <routerLink to="/javascript">JS</routerLink>
     </div>
     <router-view/>
   </div>
@@ -16,7 +16,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  position: relative;
 }
 
 #nav {

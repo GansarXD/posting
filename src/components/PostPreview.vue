@@ -8,6 +8,7 @@
         <p>{{ date }}</p>
         <hr>
         <button class="btn btn-danger" @click="deletePost">Remove this post</button>
+        <button class="btn btn-success" @click="openPost">OPEN</button>
     </div>
 </template>
 
@@ -25,11 +26,20 @@
                 this.$emit('deletedPost', {
                     id: this.id,
                     title: this.title,
-                    content: this.content
+                    content: this.content,
+                    date: this.date
                 });
             },
             editModeOn() {
                 this.$emit('editModeOn', this.id)
+            },
+            openPost() {
+                this.$emit('openPost', {
+                    id: this.id,
+                    title: this.title,
+                    content: this.content,
+                    date: this.date
+                })
             }
         }
     }

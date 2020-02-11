@@ -2,6 +2,8 @@
     <div>
         <h1>Banging js arrays</h1>
         <button class="btn btn-primary" @click="fillAll">PLAY</button>
+        <br>
+        <br>
         <button class="btn btn-danger" @click="scooterFire">PLAY CHAOTIC PRINT</button>
         <br>
         <br>
@@ -38,6 +40,9 @@
                         else {
                             reject('fail')
                         }
+
+
+
                     });
                 }));
                 promise.then((message) => {
@@ -64,19 +69,45 @@
                 alert(this.arr2.length)
             },
             scooterFire() {
-                let keys = Object.keys(this.arr2);
+                // let keys = Object.keys(this.arr2);
                 // for(let i = 0; i < this.arr2.length; i++) {
                 //     document.write(this.arr2[i] + '<br/>')
                 // }
                 // for( let i = 0; i < keys.length; i++) {
                 //     document.write(keys[i] + ' => ' + this.arr2[keys[i]] + '<br>')
                 // }
-                alert(this.arr6[0[0]])
+                // console.log(this.arr2.concat('end', 'till the end'));
+                // console.log(this.arr2.slice(1));
+                // alert(this.arr6[0[0]])
+                // this.arr2.forEach((value, index, array) => {
+                //     array[index] = value + 10;
+                // });
+                // console.log(this.arr2)
+                // let newArr2 = this.arr2.map((value, index, array) => {
+                //     return value*value;
+                // });
+                // console.log(newArr2)
+                // let newArr2 = this.arr2.filter((value, index, array) => {
+                //     return value <= 4
+                // });
+                // console.log(newArr2)
+                // let newArr2 = this.arr2.every((value) => {
+                //     return value <= 6
+                // });
+                // console.log(newArr2)
+                // let newArr2 = this.arr2.some((value) => {
+                //     return value <= 0
+                // });
+                // console.log(newArr2)
+                // let newArr2 = this.arr2.reduce((x, y) => {
+                //     return x + y
+                // });
+                // console.log(newArr2)
             }
         },
         mounted() {
             // console.log([this.element + false]);
-            console.log(this.arr3)
+            // console.log(this.arr3)
             // alert(this.arr4)
         }
     }
