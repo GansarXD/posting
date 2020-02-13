@@ -12,7 +12,7 @@ import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import VModal from 'vue-js-modal'
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 Vue.use(VueToast);
 Vue.use(HighchartsVue);
 Vue.use(VModal);
@@ -21,4 +21,4 @@ new Vue({
   router,
   store,
   render: h => h(App)
-}).$mount('#app')
+}).$mount('#app');

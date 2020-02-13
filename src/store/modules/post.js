@@ -44,8 +44,8 @@ export default {
     actions: {
         ASYNC_SET_POST(context, payload) {
             setTimeout(() => {
-                context.commit('SET_POST', payload.creatingPostForm);
-            },payload.createTimeoutDelay)
+                context.commit('SET_POST', payload);
+            },0)
         },
         ASYNC_REMOVE_POST(context, payload) {
             setTimeout( ()=> {

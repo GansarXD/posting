@@ -1,10 +1,16 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/posts">Feed</router-link> |
-      <routerLink to="/javascript">JS</routerLink>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <router-link to="/">Home</router-link> |
+            <router-link to="/about">About</router-link> |
+            <router-link to="/posts">Feed</router-link> |
+            <routerLink to="/javascript">JS</routerLink>
+          </div>
+        </div>
+      </div>
     </div>
     <router-view/>
   </div>
@@ -16,6 +22,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+  text-align: center;
 }
 
 #nav {

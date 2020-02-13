@@ -16,6 +16,9 @@
         <textarea v-model="form.content" rows="5" cols="50"></textarea>
         <br>
         <button class="btn btn-primary" @click="createPost">CREATE</button>
+        <br>
+        <br>
+        <button class="btn btn-warning" @click="getPosts">GET POSTS BY AXIOS</button>
         <div id="post" v-for="post in posts">
             <post-preview
                     @deletedPost="deletePost"
@@ -33,12 +36,17 @@
                 @updatePost="editPost"
                 :id="this.editPostId"
         />
-        <post-about
-                v-if="false"
-                :title="this.postPageForm.title"
-                :content="this.postPageForm.content"
-                :date="this.postPageForm.date"
-        />
+        <modal class="post-modal text-center" name="hello-world"
+               :scrollable="true"
+        >
+            <button class="btn btn-danger" @click="hide">CLOSE</button>
+            <hr>
+            <h1>{{ postPageForm.title }}</h1>
+            <hr>
+            <h4>{{ postPageForm.content }}</h4>
+            <hr>
+            <h4>{{ postPageForm.date }}</h4>
+        </modal>
     </div>
 </template>
 
@@ -47,7 +55,8 @@
     import EditModal from "@/components/EditModal";
     import DatePicker from 'vue2-datepicker';
     import 'vue2-datepicker/index.css';
-    import PostAbout from "@/pages/PostAbout";
+    import PostAbout from "@/components/PostAbout";
+    import {MyAxios} from '@/services/index'
 
     export default {
         name: "PostList",
@@ -86,6 +95,9 @@
             }
         },
         methods: {
+            hide () {
+                this.$modal.hide('hello-world');
+            },
             editModeOn(id) {
                 // console.log(id);
                 this.editPostId = id;
@@ -94,14 +106,34 @@
             editModeOff() {
                 this.$store.dispatch("ASYNC_EDIT_MODE_OFF")
             },
+            getPosts() {
+                let promise = new Promise(((resolve, reject) => {
+                    MyAxios.get('posts').then((response) => {
+                        let dataArray = response.data;
+                        dataArray.forEach((element, index) => {
+                            if(element.userId === 1) {
+                                this.form.id = this.id;
+                                this.$store.dispatch('ASYNC_SET_POST', {
+                                    id: this.form.id,
+                                    title: element.title,
+                                    content: element.body
+                                });
+                                console.log(111);
+                                this.$toast.success('post added');
+                                resolve('+ 1 post')
+                            }
+                            else {
+                                reject('nothing added');
+                                // this.$toast.error('no data')
+                            }
+                        })
+                    })
+                }))
+            },
     createPost() {
         if(this.form.title && this.form.content != null) {
             this.form.id = this.id;
-            this.$store.dispatch('ASYNC_SET_POST', {
-                creatingPostForm: this.form,
-                createTimeoutDelay: 600
-            });
-            // this.posts.push({...this.form});
+            this.$store.dispatch('ASYNC_SET_POST', this.form);
         }
         else {
             this.$toast.error('Fields must be filled', {
@@ -111,11 +143,8 @@
         }
     },
             editPost(post) {
-                // console.log(post);
                 this.posts.forEach((element) => {
                     if(element.id === post.id) {
-                        // console.log(element);
-                        // console.log(post);
                         this.$store.dispatch('ASYNC_UPDATE_POST', {
                             id: post.id,
                             title: post.title,
@@ -125,7 +154,6 @@
                 })
             },
             deletePost(post) {
-                // console.log(post);
                 this.posts.forEach((element) => {
                     if(element.id === post.id) {
                         console.log(element);
@@ -134,7 +162,7 @@
                 })
             },
             openPost(post) {
-                this.$router.push('/post-about');
+                this.$modal.show('hello-world');
                 this.postPageForm = {
                     title: post.title,
                     content: post.content,

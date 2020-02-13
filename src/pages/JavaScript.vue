@@ -32,17 +32,18 @@
             initPromise() {
                 let promise = new Promise(((resolve, reject) => {
                     MyAxios.get('posts').then((response) => {
-                        let userID = response.data[0].userId;
-                        console.log(userID);
-                        if (userID === 1) {
-                            resolve('success')
-                        }
-                        else {
-                            reject('fail')
-                        }
-
-
-
+                        let dataArray = response.data;
+                        dataArray.forEach((element, index) => {
+                            if (element.userId === 1) {
+                                console.log(element.body)
+                            }
+                        })
+                        // if (userID === 1) {
+                        //     resolve('success')
+                        // }
+                        // else {
+                        //     reject('fail')
+                        // }
                     });
                 }));
                 promise.then((message) => {

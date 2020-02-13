@@ -1,13 +1,13 @@
 <template>
     <div class="mini-post" id="bgcolor">
         <button class="btn btn-warning" @click="editModeOn">Edit this post</button>
+        <button style="float: right" class="btn btn-danger" @click="deletePost">Remove this post</button>
         <hr>
         <h3>{{ title }}</h3>
         <p>{{ content }}</p>
         <hr>
         <p>{{ date }}</p>
         <hr>
-        <button class="btn btn-danger" @click="deletePost">Remove this post</button>
         <button class="btn btn-success" @click="openPost">OPEN</button>
     </div>
 </template>
@@ -48,5 +48,8 @@
 <style scoped>
     #bgcolor {
         background-color: #ffffff;
+    }
+    .mini-post {
+        text-align: left;
     }
 </style>

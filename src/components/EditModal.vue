@@ -25,7 +25,6 @@
         },
         methods: {
             updatePost() {
-                // console.log(this.id);
                 this.$emit('updatePost',{
                     id: this.id,
                     title: this.newTitle,
