@@ -10,6 +10,9 @@
         format="DD-MM-YYYY"
       ></date-picker>
     </div>
+    <h2>Please enter web url of your image</h2>
+    <input type="text" v-model="form.imgUrl" />
+    <br />
     <h3>Please enter title of your post below</h3>
     <input type="text" v-model="form.title" />
     <br />
@@ -34,20 +37,47 @@
         :imgUrl="post.imgUrl"
       />
     </div>
-    <edit-modal
-      v-if="editMode"
-      @editModeOff="editModeOff"
-      @updatePost="editPost"
-      :id="this.editPostId"
-    />
-    <modal class="post-modal text-center" name="hello-world" :scrollable="true">
+    <!--    <edit-modal-->
+    <!--      v-if="editMode"-->
+    <!--      @editModeOff="editModeOff"-->
+    <!--      @updatePost="editPost"-->
+    <!--      :id="this.editPostId"-->
+    <!--    />-->
+    <modal
+      class="post-modal text-center"
+      name="hello-world"
+      :scrollable="true"
+      :draggable="true"
+    >
       <button class="btn btn-danger" @click="hide">CLOSE</button>
       <hr />
-      <h1>{{ postPageForm.title }}</h1>
+      <img style="width: 15%;" :src="postPageForm.imgUrl" alt="" />
       <hr />
-      <h4>{{ postPageForm.content }}</h4>
+      <h4>{{ postPageForm.title }}</h4>
       <hr />
-      <h4>{{ postPageForm.date }}</h4>
+      <h6>{{ postPageForm.content }}</h6>
+      <hr />
+      <h6>{{ postPageForm.date }}</h6>
+    </modal>
+    <modal
+      name="edit-modal"
+      class="post-modal"
+      :adaptive="true"
+      :scrollable="true"
+    >
+      <button class="btn btn-danger" @click="editModeOff">CANCEL</button>
+      <br />
+      <h4>New Image</h4>
+      <input v-model="newImgUrl" type="text" />
+      <hr />
+      <h4>New Title</h4>
+      <input v-model="newTitle" type="text" />
+      <h4>New Content</h4>
+      <textarea v-model="newContent" type="text" />
+      <br />
+      <button class="btn btn-success" @click="editPost">
+        CONFIRM
+      </button>
     </modal>
   </div>
 </template>
@@ -66,7 +96,11 @@ export default {
     return {
       time2: null,
       editPostId: Number,
+      newContent: "",
+      newTitle: "",
+      newImgUrl: "",
       form: {
+        imgUrl: "",
         id: Number,
         title: "",
         content: ""
@@ -101,12 +135,11 @@ export default {
       this.$modal.hide("hello-world");
     },
     editModeOn(id) {
-      // console.log(id);
+      this.$modal.show("edit-modal");
       this.editPostId = id;
-      this.$store.dispatch("ASYNC_EDIT_MODE_ON");
     },
     editModeOff() {
-      this.$store.dispatch("ASYNC_EDIT_MODE_OFF");
+      this.$modal.hide("edit-modal");
     },
     getPosts() {
       let promise = new Promise((resolve, reject) => {
@@ -144,16 +177,18 @@ export default {
         });
       }
     },
-    editPost(post) {
+    editPost() {
       this.posts.forEach(element => {
-        if (element.id === post.id) {
+        if (element.id === this.editPostId) {
           this.$store.dispatch("ASYNC_UPDATE_POST", {
-            id: post.id,
-            title: post.title,
-            content: post.content
+            imgUrl: this.newImgUrl,
+            id: this.editPostId,
+            title: this.newTitle,
+            content: this.newContent
           });
         }
       });
+      this.$modal.hide("edit-modal");
     },
     deletePost(post) {
       this.posts.forEach(element => {
@@ -166,6 +201,7 @@ export default {
     openPost(post) {
       this.$modal.show("hello-world");
       this.postPageForm = {
+        imgUrl: post.imgUrl,
         title: post.title,
         content: post.content,
         date: post.date

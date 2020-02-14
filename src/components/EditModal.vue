@@ -3,7 +3,6 @@
     <div class="modal-content">
       <button class="btn btn-danger" @click="editModeOff">CANCEL</button>
       <hr />
-      <h1>modal window</h1>
       <h4>Title</h4>
       <input v-model="newTitle" type="text" />
       <h4>Content</h4>

@@ -39,6 +39,7 @@ export default {
     },
     openPost() {
       this.$emit("openPost", {
+          imgUrl: this.imgUrl,
         id: this.id,
         title: this.title,
         content: this.content,
