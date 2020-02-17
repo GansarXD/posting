@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Banging js arrays</h1>
+    <h1>{{ $t("message.hello") }}</h1>
     <button class="btn btn-primary" @click="fillAll">PLAY</button>
     <br />
     <br />
@@ -10,6 +10,7 @@
     <br />
     <br />
     <button class="btn btn-dark" @click="initPromise">PROMISE</button>
+    <button class="btn btn-info" @click="check">CHECK</button>
   </div>
 </template>
 
@@ -106,6 +107,20 @@ export default {
       //     return x + y
       // });
       // console.log(newArr2)
+    },
+    check() {
+      let negative = false;
+      let empty = null;
+      if (negative == empty) {
+        console.log("it worked");
+      } else if (!empty && !negative) {
+        console.log("anti null statement worked");
+        console.log(!empty, !negative);
+      } else if (!negative) {
+        console.log("true statement worked");
+      } else {
+        console.log("fail");
+      }
     }
   },
   mounted() {

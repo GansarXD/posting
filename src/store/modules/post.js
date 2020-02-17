@@ -2,7 +2,8 @@ export default {
   state: {
     id: 0,
     posts: [],
-    editMode: false
+    editMode: false,
+    commentId: 0
   },
   getters: {
     POSTS(state) {
@@ -14,13 +15,17 @@ export default {
     ID(state) {
       return state.id;
     }
+    // COMMENTS(state) {
+    //   return state.posts
+    // }
   },
   mutations: {
     SET_POST(state, payload) {
       state.id += 1;
       payload.id = state.id;
       console.log(payload.id);
-      state.posts.push({ ...payload });
+      state.posts.unshift({ ...payload });
+      console.log(state.posts);
     },
     REMOVE_POST(state, payload) {
       console.log(payload.id);
@@ -41,6 +46,16 @@ export default {
     },
     EDIT_MODE_OFF(state) {
       state.editMode = false;
+    },
+    SET_COMMENT(state, payload) {
+      state.commentId += 1;
+      payload.id = state.commentId;
+      state.posts.forEach(element => {
+        if (element.id === payload.postId) {
+          element.comments.unshift(payload);
+          console.log(element.comments);
+        }
+      });
     }
   },
   actions: {
@@ -70,6 +85,9 @@ export default {
       setTimeout(() => {
         context.commit("EDIT_MODE_OFF");
       }, 500);
+    },
+    ASYNC_SET_COMMENT(context, payload) {
+      context.commit("SET_COMMENT", payload);
     }
   }
 };

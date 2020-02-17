@@ -30,11 +30,14 @@
         @deletedPost="deletePost"
         @editModeOn="editModeOn"
         @openPost="openPost"
+        @createComment="commentModalOn"
+        @openComments="openComments"
         :title="post.title"
         :content="post.content"
         :id="post.id"
         :date="post.date"
         :imgUrl="post.imgUrl"
+        :comments="comments"
       />
     </div>
     <!--    <edit-modal-->
@@ -79,6 +82,21 @@
         CONFIRM
       </button>
     </modal>
+    <modal name="comment-modal">
+      <div style="margin-top: 20px" class="d-flex justify-content-center">
+        <textarea v-model="commentForm.body" cols="50" rows="5" />
+      </div>
+      <br />
+      <div class="d-flex justify-content-center">
+        <button class="btn btn-success" @click="createComment">SUBMIT</button>
+      </div>
+    </modal>
+    <modal name="comments-list-modal">
+      <div>
+        <h6></h6>
+        <hr />
+      </div>
+    </modal>
   </div>
 </template>
 
@@ -99,11 +117,18 @@ export default {
       newContent: "",
       newTitle: "",
       newImgUrl: "",
+      commentForm: {
+        postId: Number,
+        id: Number,
+        body: "",
+        date: new Date()
+      },
       form: {
         imgUrl: "",
         id: Number,
         title: "",
-        content: ""
+        content: "",
+        comments: []
       },
       postPageForm: {
         imgUrl: "",
@@ -131,6 +156,22 @@ export default {
     }
   },
   methods: {
+    openComments(postId) {
+      this.posts.forEach(element => {
+        if (element.id === postId) {
+          console.log(element.comments);
+        }
+      });
+      this.$modal.show("comments-list-modal");
+    },
+    createComment() {
+      this.$store.dispatch("ASYNC_SET_COMMENT", this.commentForm);
+      this.$modal.hide("comment-modal");
+    },
+    commentModalOn(postId) {
+      this.commentForm.postId = postId;
+      this.$modal.show("comment-modal");
+    },
     hide() {
       this.$modal.hide("hello-world");
     },
@@ -148,14 +189,13 @@ export default {
           dataArray.forEach((element, index) => {
             if (element.albumId === 1) {
               this.form.id = this.id;
-              console.log(element.url);
               this.$store.dispatch("ASYNC_SET_POST", {
                 id: this.form.id,
                 title: element.title,
-                // content: element.body
-                imgUrl: element.url
+                content: "",
+                imgUrl: element.url,
+                comments: []
               });
-              console.log(111);
               this.$toast.success("post added");
               resolve("+ 1 post");
             } else {
