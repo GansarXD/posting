@@ -10,6 +10,8 @@
     <br />
     <br />
     <button class="btn btn-dark" @click="initPromise">PROMISE</button>
+    <br />
+    <br />
     <button class="btn btn-info" @click="check">CHECK</button>
   </div>
 </template>
