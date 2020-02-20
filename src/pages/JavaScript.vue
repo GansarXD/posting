@@ -13,6 +13,16 @@
     <br />
     <br />
     <button class="btn btn-info" @click="check">CHECK</button>
+    <br />
+    <br />
+    <input class="-input" type="text" v-model="str" placeholder="palindrome" />
+    <br />
+    <br />
+    <button class="btn btn-primary" @click="startPalindrome()">CHECK PALINDROME</button>
+    <br />
+    <br />
+    <input type="number" v-model="num">
+    <button class="btn btn-danger" @click="startFizzBuzz()">FIZZBUZZ</button>
   </div>
 </template>
 
@@ -29,7 +39,9 @@ export default {
       arr4: [1, 2, 3, "hello", 5, [1, 2, 3], 6, 7],
       element: true,
       arr5: new Array(5),
-      arr6: [["world", 2, 3], 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      arr6: [["world", 2, 3], 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      str: "",
+      num: Number
     };
   },
   methods: {
@@ -123,6 +135,32 @@ export default {
       } else {
         console.log("fail");
       }
+    },
+    palindrome(str) {
+      str = str.toLowerCase();
+      return str === str.split('').reverse().join('')
+    },
+    startPalindrome() {
+      alert(this.palindrome(this.str));
+    },
+    fizzBuzz(num) {
+      for(let i = 1; i <= num; i++) {
+        if(i % 3 === 0 && i % 5 === 0) {
+          console.log('fizzbuzz')
+        }
+        else if(i % 3 === 0) {
+          console.log('fizz')
+        }
+        else if(i % 5 === 0) {
+          console.log('buzz')
+        }
+        else {
+          console.log(i)
+        }
+      }
+    },
+    startFizzBuzz() {
+      this.fizzBuzz(this.num)
     }
   },
   mounted() {
