@@ -11,7 +11,7 @@ import HighchartsVue from "highcharts-vue";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import VModal from "vue-js-modal";
-import i18n from "@/lib/i18n/index";
+import i18n from './i18n'
 
 Vue.config.productionTip = false;
 Vue.use(VueToast);
@@ -19,8 +19,8 @@ Vue.use(HighchartsVue);
 Vue.use(VModal);
 
 new Vue({
-  i18n,
   router,
   store,
+  i18n,
   render: h => h(App)
 }).$mount("#app");
