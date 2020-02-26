@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{ $t('message.hello') }}</h1>
+    <h1>{{ $t("message.hello") }}</h1>
     <button class="btn btn-primary" @click="fillAll">PLAY</button>
     <br />
     <br />
@@ -15,14 +15,52 @@
     <button class="btn btn-info" @click="check">CHECK</button>
     <br />
     <br />
-    <input class="-input" type="text" v-model="str" placeholder="palindrome" />
-    <br />
-    <br />
-    <button class="btn btn-primary" @click="startPalindrome()">CHECK PALINDROME</button>
-    <br />
-    <br />
-    <input type="number" v-model="num">
-    <button class="btn btn-danger" @click="startFizzBuzz()">FIZZBUZZ</button>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6">
+          <input
+            class="-input"
+            type="text"
+            v-model="str"
+            placeholder="palindrome"
+          />
+          <br />
+
+          <button class="btn btn-primary" @click="startPalindrome()">
+            CHECK PALINDROME
+          </button>
+          <br />
+          <br />
+          <input type="number" v-model="num" />
+          <br />
+          <button class="btn btn-danger" @click="startFizzBuzz()">
+            FIZZBUZZ
+          </button>
+          <br />
+          <br />
+          <input type="text" v-model="vowels" />
+          <br />
+          <button class="btn btn-warning" @click="startFindVowels">
+            FIND VOWELS
+          </button>
+          <br />
+          <br />
+          <input type="number" v-model="fibonacci" />
+          <br />
+          <button class="btn btn-success" @click="startFibo">FIBONACCI</button>
+          <br />
+          <br />
+          <input type="number" placeholder="number" v-model="n" />
+          <br />
+          <input type="number" placeholder="in the power" v-model="powerNum" />
+          <br />
+          <button class="btn btn-primary" @click="startPowerNum">
+            POWER OF N
+          </button>
+        </div>
+        <div class="col-md-6"></div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -41,7 +79,11 @@ export default {
       arr5: new Array(5),
       arr6: [["world", 2, 3], 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       str: "",
-      num: Number
+      num: Number,
+      vowels: "",
+      fibonacci: Number,
+      n: Number,
+      powerNum: Number
     };
   },
   methods: {
@@ -138,29 +180,64 @@ export default {
     },
     palindrome(str) {
       str = str.toLowerCase();
-      return str === str.split('').reverse().join('')
+      return (
+        str ===
+        str
+          .split("")
+          .reverse()
+          .join("")
+      );
     },
     startPalindrome() {
       alert(this.palindrome(this.str));
     },
     fizzBuzz(num) {
-      for(let i = 1; i <= num; i++) {
-        if(i % 3 === 0 && i % 5 === 0) {
-          console.log('fizzbuzz')
-        }
-        else if(i % 3 === 0) {
-          console.log('fizz')
-        }
-        else if(i % 5 === 0) {
-          console.log('buzz')
-        }
-        else {
-          console.log(i)
+      for (let i = 1; i <= num; i++) {
+        if (i % 3 === 0 && i % 5 === 0) {
+          console.log("fizzbuzz");
+        } else if (i % 3 === 0) {
+          console.log("fizz");
+        } else if (i % 5 === 0) {
+          console.log("buzz");
+        } else {
+          console.log(i);
         }
       }
     },
     startFizzBuzz() {
-      this.fizzBuzz(this.num)
+      this.fizzBuzz(this.num);
+    },
+    findVowels(str) {
+      let count = 0;
+      const vowels = ["a", "e", "i", "o", "u"];
+      for (let char of str.toLowerCase()) {
+        if (vowels.includes(char)) {
+          count++;
+        }
+      }
+      return count;
+    },
+    startFindVowels() {
+      console.log(this.findVowels(this.vowels));
+    },
+    fibo(num) {
+      if (num < 2) {
+        return num;
+      }
+      return this.fibo(num - 1) + this.fibo(num - 2);
+    },
+    startFibo() {
+      console.log(this.fibo(this.fibonacci));
+    },
+    powerFunc(number, power) {
+      if (power === 1) {
+        return number;
+      } else {
+        return number * this.powerFunc(number, power - 1);
+      }
+    },
+    startPowerNum() {
+      console.log(this.powerFunc(this.n, this.powerNum));
     }
   },
   mounted() {
